@@ -4,11 +4,12 @@
     :h="rectHeight"
     :x="rectX"
     :y="rectY"
-    @dragging="onRectangleEdit"
-    @resizing="onRectangleEdit"
+    @dragging="editRect"
+    @resizing="editRect"
     :parent="true"
   >
-    <input v-model="labelText" type="text" @input="onRectangleEdit" />
+    <input v-model="labelText" type="text" @input="editRect" />
+    <button @click="deleteRect">del</button>
     <p>
       X: {{ rectX }} / Y: {{ rectY }} - Width: {{ rectWidth }} / Height:
       {{ rectHeight }}
@@ -29,7 +30,7 @@ export default {
     label: String,
     width: Number,
     height: Number,
-    index: Number,
+    uuid: String,
   },
   data() {
     return {
@@ -41,7 +42,12 @@ export default {
     };
   },
   methods: {
-    onRectangleEdit(x, y, width, height) {
+    deleteRect() {
+      this.$store.dispatch('deleteRect', {
+        uuid: this.uuid,
+      });
+    },
+    editRect(x, y, width, height) {
       if (x && y) {
         this.rectX = x;
         this.rectY = y;
@@ -56,7 +62,7 @@ export default {
         width: this.rectWidth,
         height: this.rectHeight,
         label: this.labelText,
-        index: this.index,
+        uuid: this.uuid,
       });
     },
   },

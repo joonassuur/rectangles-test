@@ -1,9 +1,9 @@
 <template>
   <div class="rectangles-container" @mousedown="addRect">
-    <template v-for="(rect, index) in rectangles">
+    <template v-for="(rect) in rectangles">
       <Rectangles
-        :key="index"
-        :index="index"
+        :key="rect.uuid"
+        :uuid="rect.uuid"
         :label="rect.label"
         :mouseX="rect.mouseX"
         :mouseY="rect.mouseY"
@@ -16,6 +16,7 @@
 
 <script>
 // @ is an alias to /src
+import { uuid } from 'vue-uuid';
 import Rectangles from '@/components/Rectangles.vue';
 
 export default {
@@ -37,6 +38,7 @@ export default {
           label: '',
           width: 100,
           height: 100,
+          uuid: uuid.v4(),
         });
       }
     },

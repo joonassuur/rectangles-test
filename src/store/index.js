@@ -13,9 +13,16 @@ export default new Vuex.Store({
     pushRectangles(state, rect) {
       state.rectangles.push(rect);
     },
+    deleteRectangle(state, { uuid }) {
+      state.rectangles.forEach((rect, index) => {
+        if (rect.uuid === uuid) {
+          state.rectangles.splice(index, 1);
+        }
+      });
+    },
     modifyRectangles(state, newData) {
-      state.rectangles.forEach((rectangle, index) => {
-        if (index === newData.index) {
+      state.rectangles.forEach((rect, index) => {
+        if (rect.uuid === newData.uuid) {
           state.rectangles[index] = newData;
         }
       });
@@ -24,6 +31,9 @@ export default new Vuex.Store({
   actions: {
     addRect(context, rect) {
       context.commit('pushRectangles', rect);
+    },
+    deleteRect(context, uuid) {
+      context.commit('deleteRectangle', uuid);
     },
     modifyRect(context, newData) {
       context.commit('modifyRectangles', newData);
