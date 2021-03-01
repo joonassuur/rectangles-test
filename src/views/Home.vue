@@ -36,8 +36,8 @@ export default {
           mouseX: e.offsetX,
           mouseY: e.offsetY,
           label: '',
-          width: 210,
-          height: 210,
+          width: 150,
+          height: 150,
           uuid: uuid.v4(),
         });
       }

@@ -11,7 +11,7 @@
     class-name-handle="resize-handle"
   >
     <div class="label-button">
-      <input v-model="labelText" type="text" @input="editRect" />
+      <span class="input" role="textbox" @input="editRect" contenteditable>{{labelText}}</span>
       <button @click="deleteRect">X</button>
     </div>
     <!-- <p>
@@ -96,12 +96,14 @@ a {
   display: flex;
   justify-content: space-between;
   position: relative;
-  top: -25px;
+  top: 0px;
   left: -2px;
-  input {
+  span {
+    text-align: left;
+    min-width: 50px;
     border: none;
     background: rgb(107, 212, 8);
-    color: white;
+    color: #000;
     padding: 5px;
   }
   button {
@@ -125,37 +127,42 @@ a {
   }
 }
 
-.resize-handle-br {
-  bottom: 0px;
-  right: 0px;
-  cursor: se-resize;
-  width: 15px;
-  height: 15px;
-  background: #6bd408;
+.resize-handle {
+  width: 10px;
+  height: 10px;
+  background: #fff;
   position: absolute;
   box-sizing: border-box;
+  border: 1px solid #6bd408;
+
+  &-tm,
+  &-mr,
+  &-bm,
+  &-ml {
+    display: none !important;
+  }
+
+  &.resize-handle-tl {
+    top: -5px;
+    left: -5px;
+    cursor: nw-resize;
+    z-index: 99;
+  }
+  &.resize-handle-tr {
+    top: -5px;
+    right: -5px;
+    cursor: ne-resize;
+    z-index: 99;
+  }
+  &.resize-handle-br {
+    bottom: -5px;
+    right: -5px;
+    cursor: se-resize;
+  }
+  &.resize-handle-bl {
+    bottom: -5px;
+    left: -5px;
+    cursor: sw-resize;
+  }
 }
-// .resize-handle-bl {
-//   bottom: -10px;
-//   left: -10px;
-//   cursor: sw-resize;
-//   width: 10px;
-//   height: 10px;
-//   background: #6bd408;
-//   border: 1px solid #333;
-//   position: absolute;
-//   box-sizing: border-box;
-// }
-// .resize-handle-bm {
-//   bottom: -10px;
-//   left: 50%;
-//   margin-left: -5px;
-//   cursor: s-resize;
-//   width: 10px;
-//   height: 10px;
-//   background: #6bd408;
-//   border: 1px solid #333;
-//   position: absolute;
-//   box-sizing: border-box;
-// }
 </style>
