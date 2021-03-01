@@ -7,23 +7,27 @@
     @dragging="editRect"
     @resizing="editRect"
     :parent="true"
+    class-name-active="my-active-class"
+    class-name-handle="resize-handle"
   >
-    <input v-model="labelText" type="text" @input="editRect" />
-    <button @click="deleteRect">del</button>
-    <p>
+    <div class="label-button">
+      <input v-model="labelText" type="text" @input="editRect" />
+      <button @click="deleteRect">X</button>
+    </div>
+    <!-- <p>
       X: {{ rectX }} / Y: {{ rectY }} - Width: {{ rectWidth }} / Height:
       {{ rectHeight }}
-    </p>
+    </p> -->
   </vue-draggable-resizable>
 </template>
 
 <script>
-/* eslint-disable  */
+/* eslint-disable */
 import VueDraggableResizable from 'vue-draggable-resizable';
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
 
 export default {
-  name: 'HelloWorld',
+  name: 'Rectangle',
   props: {
     mouseX: Number,
     mouseY: Number,
@@ -47,10 +51,10 @@ export default {
         uuid: this.uuid,
       });
     },
-    editRect(x, y, width, height) {
-      if (x && y) {
-        this.rectX = x;
-        this.rectY = y;
+    editRect(xPos, yPos, width, height) {
+      if (xPos && yPos) {
+        this.rectX = xPos;
+        this.rectY = yPos;
       }
       if (width && height) {
         this.rectWidth = width;
@@ -88,4 +92,70 @@ li {
 a {
   color: #42b983;
 }
+.label-button {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  top: -25px;
+  left: -2px;
+  input {
+    border: none;
+    background: rgb(107, 212, 8);
+    color: white;
+    padding: 5px;
+  }
+  button {
+    background: rgb(107, 212, 8);
+    border: none;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    right: -4px;
+  }
+}
+</style>
+<style lang="scss">
+.vdr {
+  border: 2px solid rgb(107, 212, 8);
+}
+.my-active-class {
+  border: 2px solid rgb(107, 212, 8);
+  .handle {
+    background: rgb(107, 212, 8);
+  }
+}
+
+.resize-handle-br {
+  bottom: 0px;
+  right: 0px;
+  cursor: se-resize;
+  width: 15px;
+  height: 15px;
+  background: #6bd408;
+  position: absolute;
+  box-sizing: border-box;
+}
+// .resize-handle-bl {
+//   bottom: -10px;
+//   left: -10px;
+//   cursor: sw-resize;
+//   width: 10px;
+//   height: 10px;
+//   background: #6bd408;
+//   border: 1px solid #333;
+//   position: absolute;
+//   box-sizing: border-box;
+// }
+// .resize-handle-bm {
+//   bottom: -10px;
+//   left: 50%;
+//   margin-left: -5px;
+//   cursor: s-resize;
+//   width: 10px;
+//   height: 10px;
+//   background: #6bd408;
+//   border: 1px solid #333;
+//   position: absolute;
+//   box-sizing: border-box;
+// }
 </style>

@@ -36,8 +36,8 @@ export default {
           mouseX: e.offsetX,
           mouseY: e.offsetY,
           label: '',
-          width: 100,
-          height: 100,
+          width: 210,
+          height: 210,
           uuid: uuid.v4(),
         });
       }
@@ -48,8 +48,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .rectangles-container {
-  height: 500px;
-  width: 100%;
+  height: 700px;
+  width: 1000px;
   margin: 0 auto;
   border: 1px solid red;
   position: relative;
