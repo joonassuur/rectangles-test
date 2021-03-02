@@ -11,7 +11,7 @@
     class-name-handle="resize-handle"
   >
     <div class="label-button">
-      <span class="input" role="textbox" @input="editRect" contenteditable>{{labelText}}</span>
+      <input :size="labelText.length || 1" v-model="labelText" type="text" @input="editRect" />
       <button @click="deleteRect">X</button>
     </div>
     <!-- <p>
@@ -52,6 +52,7 @@ export default {
       });
     },
     editRect(xPos, yPos, width, height) {
+      console.log(this.labelText)
       if (xPos && yPos) {
         this.rectX = xPos;
         this.rectY = yPos;
@@ -92,19 +93,23 @@ li {
 a {
   color: #42b983;
 }
+.draggable  {
+  cursor: move;
+}
 .label-button {
   display: flex;
   justify-content: space-between;
   position: relative;
   top: 0px;
   left: -2px;
-  span {
+  input {
     text-align: left;
     min-width: 50px;
     border: none;
     background: rgb(107, 212, 8);
     color: #000;
     padding: 5px;
+    cursor: text;
   }
   button {
     background: rgb(107, 212, 8);
@@ -117,6 +122,7 @@ a {
 }
 </style>
 <style lang="scss">
+
 .vdr {
   border: 2px solid rgb(107, 212, 8);
 }
