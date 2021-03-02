@@ -11,7 +11,12 @@
     class-name-handle="resize-handle"
   >
     <div class="label-button">
-      <input :size="labelText.length || 1" v-model="labelText" type="text" @input="editRect" />
+      <input
+        :size="labelText.length || 1"
+        v-model="labelText"
+        type="text"
+        @input="editRect"
+      />
       <button @click="deleteRect">X</button>
     </div>
     <!-- <p>
@@ -52,12 +57,11 @@ export default {
       });
     },
     editRect(xPos, yPos, width, height) {
-      console.log(this.labelText)
-      if (xPos && yPos) {
+      if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
         this.rectY = yPos;
       }
-      if (width && height) {
+      if (width !== undefined && height !== undefined) {
         this.rectWidth = width;
         this.rectHeight = height;
       }
@@ -93,7 +97,7 @@ li {
 a {
   color: #42b983;
 }
-.draggable  {
+.draggable {
   cursor: move;
 }
 .label-button {
@@ -122,7 +126,6 @@ a {
 }
 </style>
 <style lang="scss">
-
 .vdr {
   border: 2px solid rgb(107, 212, 8);
 }
