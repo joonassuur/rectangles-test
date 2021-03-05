@@ -1,7 +1,7 @@
 <template>
   <div class="rectangles-container" @mousedown="addRect">
     <template v-for="(rect) in rectangles">
-      <Rectangles
+      <Rectangle
         :key="rect.uuid"
         :uuid="rect.uuid"
         :label="rect.label"
@@ -15,14 +15,13 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { uuid } from 'vue-uuid';
-import Rectangles from '@/components/Rectangles.vue';
+import Rectangle from '../components/Rectangle.vue';
 
 export default {
-  name: 'Home',
+  name: 'RectanglesContainer',
   components: {
-    Rectangles,
+    Rectangle,
   },
   computed: {
     rectangles() {

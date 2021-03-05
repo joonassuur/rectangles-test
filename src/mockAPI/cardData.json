@@ -1,0 +1,18 @@
+{
+  "projects": [
+    {
+      "projectName": "name1",
+      "areaSize": "23 m2",
+      "areaName": "tallinn",
+      "observationPoints": "6",
+      "speciesDetected": "2"
+    },
+    {
+      "projectName": "name2",
+      "areaSize": "263 m2",
+      "areaName": "tartu",
+      "observationPoints": "2",
+      "speciesDetected": "4"
+    }
+  ]
+}

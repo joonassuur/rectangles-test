@@ -118,7 +118,7 @@ a {
   button {
     background: rgb(107, 212, 8);
     border: none;
-    color: white;
+    color: #000;
     cursor: pointer;
     position: relative;
     right: -4px;
