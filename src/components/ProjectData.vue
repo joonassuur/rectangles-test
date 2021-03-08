@@ -29,10 +29,15 @@ export default {
   flex: 1 0 50%;
   flex-direction: column;
   text-align: left;
-  padding: 0.5em 0;
+  padding-top: 0.85em;
   .data-name {
     color: #006eb5;
+    font-size: 12px;
     text-transform: uppercase;
+  }
+  .data-value {
+    font-size: 14px;
+    color: #34394c;
   }
 }
 </style>

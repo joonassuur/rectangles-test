@@ -1,18 +1,18 @@
 <template>
   <div class="main">
     <template v-for="(project, index) in getCardData">
-      <ProjectCard :key="index" :data="project" />
+      <ProjectListItem :key="index" :data="project" />
     </template>
   </div>
 </template>
 <script>
 import cardData from '../mockAPI/cardData.json';
-import ProjectCard from '../components/ProjectCard.vue';
+import ProjectListItem from '../components/ProjectListItem.vue';
 
 export default {
   name: 'Main',
   components: {
-    ProjectCard,
+    ProjectListItem,
   },
   computed: {
     getCardData() {
@@ -26,5 +26,7 @@ export default {
 <style scoped lang="scss">
 .main {
   display: flex;
+    flex-wrap: wrap;
+
 }
 </style>

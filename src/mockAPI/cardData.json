@@ -1,18 +1,52 @@
 {
   "projects": [
     {
-      "projectName": "name1",
+      "name": "name1",
       "areaSize": "23 m2",
-      "areaName": "tallinn",
-      "observationPoints": "6",
-      "speciesDetected": "2"
+      "dateRange": "2021.01.11",
+      "observationCases": "6",
+      "speciesDetected": "2",
+      "isActive": true
     },
     {
-      "projectName": "name2",
+      "name": "name2",
+      "areaSize": "23 m2",
+      "dateRange": "2021.01.11",
+      "observationCases": "6",
+      "speciesDetected": "2",
+      "isActive": true
+    },
+    {
+      "name": "name3",
+      "areaSize": "23 m2",
+      "dateRange": "2021.01.11",
+      "observationCases": "6",
+      "speciesDetected": "2",
+      "isActive": true
+    },
+    {
+      "name": "name4",
+      "areaSize": "23 m2",
+      "dateRange": "2021.01.11",
+      "observationCases": "6",
+      "speciesDetected": "2",
+      "isActive": true
+    },
+    {
+      "name": "name5",
+      "areaSize": "23 m2",
+      "dateRange": "2021.01.11",
+      "observationCases": "6",
+      "speciesDetected": "2",
+      "isActive": false
+    },
+    {
+      "name": "name6",
       "areaSize": "263 m2",
-      "areaName": "tartu",
-      "observationPoints": "2",
-      "speciesDetected": "4"
+      "dateRange": "2021.01.11",
+      "observationCases": "2",
+      "speciesDetected": "4",
+      "isActive": false
     }
   ]
 }
