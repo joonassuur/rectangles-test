@@ -78,7 +78,7 @@ export default {
         this.rectYPer = (yPos / this.parentContainerRef.offsetHeight) * 100;
       }
       if (width !== undefined && height !== undefined) {
-        this.rectWidth = width; 
+        this.rectWidth = width;
         this.rectHeight = height;
         this.rectWidthPer = (width / this.parentContainerRef.offsetWidth) * 100;
         this.rectHeightPer =

@@ -18,7 +18,6 @@
 </template>
 <script>
 /* eslint-disable */
-import '../../node_modules/veera-styles/scss/main.scss';
 import ProjectData from './ProjectData.vue';
 
 export default {

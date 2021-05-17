@@ -6,7 +6,6 @@
 </template>
 <script>
 /* eslint-disable */
-import '../../node_modules/veera-styles/scss/main.scss';
 
 export default {
   name: 'ProjectCard',
