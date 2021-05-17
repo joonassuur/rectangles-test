@@ -1,8 +1,6 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Main</router-link> |
-      <router-link to="/rectangles">Rectangles</router-link>
     </div>
     <router-view />
   </div>
