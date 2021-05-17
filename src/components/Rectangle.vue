@@ -68,7 +68,7 @@ export default {
     },
     editRect(xPos, yPos, width, height) {
       this.calculateRectPercentages(); //should run only once at the beginning
-      
+
       if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
         this.rectY = yPos;
@@ -97,12 +97,15 @@ export default {
     calculateRectDims() {
       this.calculateContainerDims();
 
-
       if (this.rectPerWidth) {
-        this.rectWidth = Math.round(this.parentWidth * (this.rectPerWidth / 100));
+        this.rectWidth = Math.round(
+          this.parentWidth * (this.rectPerWidth / 100)
+        );
       }
       if (this.rectPerHeight) {
-        this.rectHeight = Math.round(this.parentHeight * (this.rectPerHeight / 100));
+        this.rectHeight = Math.round(
+          this.parentHeight * (this.rectPerHeight / 100)
+        );
       }
       if (this.rectPerX) {
         this.rectX = Math.round(this.parentWidth * (this.rectPerX / 100));
@@ -111,6 +114,14 @@ export default {
         this.rectY = Math.round(this.parentHeight * (this.rectPerY / 100));
       }
 
+      this.$store.dispatch('modifyRect', {
+        mouseX: this.rectX,
+        mouseY: this.rectY,
+        width: this.rectWidth,
+        height: this.rectHeight,
+        label: this.labelText,
+        uuid: this.uuid,
+      });
     },
     calculateRectPercentages() {
       const rectanglePercentageWidth =
