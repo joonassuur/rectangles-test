@@ -77,7 +77,7 @@ export default {
       });
     },
     editRect(xPos, yPos, width, height) {
-      this.calculateRectPercentages(); //should run only once at the beginning
+      this.calculateRectPercentages(); 
 
       if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
