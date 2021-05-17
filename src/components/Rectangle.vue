@@ -112,15 +112,6 @@ export default {
         this.rectY = Math.round(this.parentHeight * (this.rectPerY / 100));
       }
 
-      this.$store.dispatch('modifyRect', {
-        mouseX: this.rectX,
-        mouseY: this.rectY,
-        width: this.rectWidth,
-        height: this.rectHeight,
-        label: this.labelText,
-        uuid: this.uuid,
-      });
-
     },
     calculateRectPercentages() {
       const rectanglePercentageWidth =
@@ -134,10 +125,12 @@ export default {
       this.rectPerX = rectanglePercentageX;
       this.rectPerY = rectanglePercentageY;
     },
-
+    clearRectPercentages() {
+      this.isResizeActive = false;
+    },
   },
   mounted() {
-    this.calculateContainerDims();
+    this.calculateRectDims();
     //this.calculateRectPercentages();
     window.addEventListener('resize', this.calculateRectDims);
   },
