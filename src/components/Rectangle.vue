@@ -67,6 +67,8 @@ export default {
       });
     },
     editRect(xPos, yPos, width, height) {
+      this.calculateRectPercentages(); //should run only once at the beginning
+      
       if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
         this.rectY = yPos;
@@ -95,10 +97,7 @@ export default {
     calculateRectDims() {
       this.calculateContainerDims();
 
-      if (!this.isResizeActive) {
-        this.calculateRectPercentages(); //should run only once at the beginning
-        this.isResizeActive = true;
-      }
+
       if (this.rectPerWidth) {
         this.rectWidth = Math.round(this.parentWidth * (this.rectPerWidth / 100));
       }
@@ -125,13 +124,10 @@ export default {
       this.rectPerX = rectanglePercentageX;
       this.rectPerY = rectanglePercentageY;
     },
-    clearRectPercentages() {
-      this.isResizeActive = false;
-    },
   },
   mounted() {
     this.calculateRectDims();
-    //this.calculateRectPercentages();
+    this.calculateRectPercentages();
     window.addEventListener('resize', this.calculateRectDims);
   },
 };
