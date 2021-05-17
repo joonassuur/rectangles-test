@@ -1,12 +1,5 @@
 <template>
   <vue-draggable-resizable
-    :style="{
-      width: rectWidthPer + '%',
-      height: rectHeightPer + '%',
-      left: rectXPer + '%',
-      top: rectYPer + '%',
-      transform: 'inherit',
-    }"
     :w="rectWidth"
     :h="rectHeight"
     :x="rectX"
@@ -30,6 +23,7 @@
 </template>
 
 <script>
+let resizeId;
 /* eslint-disable */
 import VueDraggableResizable from 'vue-draggable-resizable';
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
@@ -49,16 +43,20 @@ export default {
   },
   data() {
     return {
+      isResizeActive: false,
+
       rectWidth: this.width,
       rectHeight: this.height,
       rectX: this.mouseX,
       rectY: this.mouseY,
       labelText: this.label,
 
-      rectWidthPer: undefined,
-      rectHeightPer: undefined,
-      rectXPer: undefined,
-      rectYPer: undefined,
+      parentWidth: undefined,
+      parentHeight: undefined,
+      rectPerWidth: undefined,
+      rectPerHeight: undefined,
+      rectPerX: undefined,
+      rectPerY: undefined,
 
       parentContainerRef: {},
     };
@@ -70,19 +68,13 @@ export default {
       });
     },
     editRect(xPos, yPos, width, height) {
-      this.calculateContainerDims();
       if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
         this.rectY = yPos;
-        this.rectXPer = (xPos / this.parentContainerRef.offsetWidth) * 100;
-        this.rectYPer = (yPos / this.parentContainerRef.offsetHeight) * 100;
       }
       if (width !== undefined && height !== undefined) {
         this.rectWidth = width;
         this.rectHeight = height;
-        this.rectWidthPer = (width / this.parentContainerRef.offsetWidth) * 100;
-        this.rectHeightPer =
-          (height / this.parentContainerRef.offsetHeight) * 100;
       }
       this.$store.dispatch('modifyRect', {
         mouseX: this.rectX,
@@ -98,18 +90,67 @@ export default {
       const parentWidth = this.parentContainerRef.getBoundingClientRect().width;
       const parentHeight = this.parentContainerRef.getBoundingClientRect()
         .height;
-      this.rectWidthPer = (this.rectWidth / parentWidth) * 100;
-      this.rectHeightPer = (this.rectHeight / parentHeight) * 100;
+      this.parentWidth = parentWidth;
+      this.parentHeight = parentHeight;
+    },
+    calculateRectDims() {
+      this.calculateContainerDims();
 
-      const rectXPer = (this.rectX / parentWidth) * 100;
-      const rectYPer = (this.rectY / parentHeight) * 100;
+      if (!this.isResizeActive) {
+        this.calculateRectPercentages(); //should run only once at the beginning
+        this.isResizeActive = true;
+      }
+      if (this.rectPerWidth) {
+        this.rectWidth = Math.round(this.parentWidth * (this.rectPerWidth / 100));
+      }
+      if (this.rectPerHeight) {
+        this.rectHeight = Math.round(this.parentHeight * (this.rectPerHeight / 100));
+      }
+      if (this.rectPerX) {
+        this.rectX = Math.round(this.parentWidth * (this.rectPerX / 100));
+      }
+      if (this.rectPerY) {
+        this.rectY = Math.round(this.parentHeight * (this.rectPerY / 100));
+      }
 
-      this.rectXPer = rectXPer;
-      this.rectYPer = rectYPer;
+      this.$store.dispatch('modifyRect', {
+        mouseX: this.rectX,
+        mouseY: this.rectY,
+        width: this.rectWidth,
+        height: this.rectHeight,
+        label: this.labelText,
+        uuid: this.uuid,
+      });
+
+      // might not be necessary
+      clearTimeout(resizeId);
+      resizeId = setTimeout(this.clearRectPercentages, 500);
+    },
+    calculateRectPercentages() {
+      const rectanglePercentageWidth =
+        (this.rectWidth / this.parentWidth) * 100;
+      const rectanglePercentageHeight =
+        (this.rectHeight / this.parentHeight) * 100;
+      const rectanglePercentageX = (this.rectX / this.parentWidth) * 100;
+      const rectanglePercentageY = (this.rectY / this.parentHeight) * 100;
+      this.rectPerWidth = rectanglePercentageWidth;
+      this.rectPerHeight = rectanglePercentageHeight;
+      this.rectPerX = rectanglePercentageX;
+      this.rectPerY = rectanglePercentageY;
+    },
+    clearRectPercentages() {
+      // might not be necessary
+      this.rectPerWidth = undefined;
+      this.rectPerHeight = undefined;
+      this.rectPerX = undefined;
+      this.rectPerY = undefined;
+      this.isResizeActive = undefined;
     },
   },
   mounted() {
     this.calculateContainerDims();
+    //this.calculateRectPercentages();
+    window.addEventListener('resize', this.calculateRectDims);
   },
 };
 </script>
