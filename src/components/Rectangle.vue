@@ -23,7 +23,6 @@
 </template>
 
 <script>
-let resizeId;
 /* eslint-disable */
 import VueDraggableResizable from 'vue-draggable-resizable';
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
@@ -122,9 +121,6 @@ export default {
         uuid: this.uuid,
       });
 
-      // might not be necessary
-      clearTimeout(resizeId);
-      resizeId = setTimeout(this.clearRectPercentages, 500);
     },
     calculateRectPercentages() {
       const rectanglePercentageWidth =
@@ -138,14 +134,7 @@ export default {
       this.rectPerX = rectanglePercentageX;
       this.rectPerY = rectanglePercentageY;
     },
-    clearRectPercentages() {
-      // might not be necessary
-      this.rectPerWidth = undefined;
-      this.rectPerHeight = undefined;
-      this.rectPerX = undefined;
-      this.rectPerY = undefined;
-      this.isResizeActive = undefined;
-    },
+
   },
   mounted() {
     this.calculateContainerDims();
