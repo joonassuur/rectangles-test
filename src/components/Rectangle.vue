@@ -39,9 +39,9 @@ export default {
   props: {
     mouseX: Number,
     mouseY: Number,
-    label: String,
     width: Number,
     height: Number,
+    label: String,
     uuid: String,
   },
   components: {
@@ -70,6 +70,7 @@ export default {
       });
     },
     editRect(xPos, yPos, width, height) {
+      this.calculateContainerDims();
       if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
         this.rectY = yPos;
@@ -77,7 +78,7 @@ export default {
         this.rectYPer = (yPos / this.parentContainerRef.offsetHeight) * 100;
       }
       if (width !== undefined && height !== undefined) {
-        this.rectWidth = width;
+        this.rectWidth = width; 
         this.rectHeight = height;
         this.rectWidthPer = (width / this.parentContainerRef.offsetWidth) * 100;
         this.rectHeightPer =
