@@ -5,8 +5,8 @@
         :key="rect.uuid"
         :uuid="rect.uuid"
         :label="rect.label"
-        :mouseX="rect.mouseX"
-        :mouseY="rect.mouseY"
+        :x="rect.x"
+        :y="rect.y"
         :width="rect.width"
         :height="rect.height"
       />
@@ -32,8 +32,8 @@ export default {
     addRect(e) {
       if (e.target.className === 'rectangles-container') {
         this.$store.dispatch('addRect', {
-          mouseX: e.offsetX,
-          mouseY: e.offsetY,
+          x: e.offsetX,
+          y: e.offsetY,
           label: '',
           width: 150,
           height: 150,

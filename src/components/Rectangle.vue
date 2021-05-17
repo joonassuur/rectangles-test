@@ -30,8 +30,8 @@ import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
 export default {
   name: 'Rectangle',
   props: {
-    mouseX: Number,
-    mouseY: Number,
+    x: Number,
+    y: Number,
     width: Number,
     height: Number,
     label: String,
@@ -46,8 +46,8 @@ export default {
 
       rectWidth: this.width,
       rectHeight: this.height,
-      rectX: this.mouseX,
-      rectY: this.mouseY,
+      rectX: this.x,
+      rectY: this.y,
       labelText: this.label,
 
       parentWidth: undefined,
@@ -66,6 +66,16 @@ export default {
         uuid: this.uuid,
       });
     },
+    dispatchCoords() {
+      this.$store.dispatch('modifyRect', {
+        x: this.rectX,
+        y: this.rectY,
+        width: this.rectWidth,
+        height: this.rectHeight,
+        label: this.labelText,
+        uuid: this.uuid,
+      });
+    },
     editRect(xPos, yPos, width, height) {
       this.calculateRectPercentages(); //should run only once at the beginning
 
@@ -77,14 +87,7 @@ export default {
         this.rectWidth = width;
         this.rectHeight = height;
       }
-      this.$store.dispatch('modifyRect', {
-        mouseX: this.rectX,
-        mouseY: this.rectY,
-        width: this.rectWidth,
-        height: this.rectHeight,
-        label: this.labelText,
-        uuid: this.uuid,
-      });
+      this.dispatchCoords();
     },
     calculateContainerDims() {
       this.parentContainerRef = this.$parent.$el;
@@ -113,15 +116,7 @@ export default {
       if (this.rectPerY) {
         this.rectY = Math.round(this.parentHeight * (this.rectPerY / 100));
       }
-
-      this.$store.dispatch('modifyRect', {
-        mouseX: this.rectX,
-        mouseY: this.rectY,
-        width: this.rectWidth,
-        height: this.rectHeight,
-        label: this.labelText,
-        uuid: this.uuid,
-      });
+      this.dispatchCoords();
     },
     calculateRectPercentages() {
       const rectanglePercentageWidth =
