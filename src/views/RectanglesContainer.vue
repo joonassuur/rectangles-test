@@ -1,9 +1,15 @@
 <template>
   <div
+    :style="{
+      height: height + 'px',
+      backgroundImage:
+        'url(https://cdn.britannica.com/57/92857-050-8D5A0A8E/bull-moose-water.jpg)',
+    }"
     class="rectangles-container"
     @mousedown="addRect"
   >
     <img
+      id="image-tag"
       src="https://cdn.britannica.com/57/92857-050-8D5A0A8E/bull-moose-water.jpg"
       alt=""
     />
@@ -30,6 +36,12 @@ export default {
   components: {
     Rectangle,
   },
+  data() {
+    return {
+      width: null,
+      height: null,
+    };
+  },
   computed: {
     rectangles() {
       return this.$store.state.rectangles;
@@ -48,6 +60,16 @@ export default {
         });
       }
     },
+    resizeContainer() {
+      const image = document.querySelector('#image-tag');
+      image.style.display = 'block';
+      this.height = image.getBoundingClientRect().height;
+      image.style.display = 'none';
+    },
+  },
+  mounted() {
+    this.resizeContainer();
+    window.addEventListener('resize', this.resizeContainer);
   },
 };
 </script>
@@ -63,9 +85,9 @@ export default {
   border: 1px solid red;
   position: relative;
   img {
+    visibility: hidden;
     position: relative;
     width: 100%;
-    z-index: -1;
   }
 }
 </style>
