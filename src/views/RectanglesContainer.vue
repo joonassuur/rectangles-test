@@ -1,6 +1,13 @@
 <template>
-  <div class="rectangles-container" @mousedown="addRect">
-    <template v-for="(rect) in rectangles">
+  <div
+    :style="{
+      backgroundImage:
+        'url(https://cdn.britannica.com/57/92857-050-8D5A0A8E/bull-moose-water.jpg)',
+    }"
+    class="rectangles-container"
+    @mousedown="addRect"
+  >
+    <template v-for="rect in rectangles">
       <Rectangle
         :key="rect.uuid"
         :uuid="rect.uuid"
@@ -49,6 +56,9 @@ export default {
 .rectangles-container {
   height: 700px;
   width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   max-width: 1000px;
   margin: 0 auto;
   border: 1px solid red;
