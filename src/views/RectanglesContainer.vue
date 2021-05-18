@@ -38,7 +38,6 @@ export default {
   },
   data() {
     return {
-      width: null,
       height: null,
     };
   },
