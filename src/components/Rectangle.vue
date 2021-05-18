@@ -42,8 +42,6 @@ export default {
   },
   data() {
     return {
-      isResizeActive: false,
-
       rectWidth: this.width,
       rectHeight: this.height,
       rectX: this.x,
