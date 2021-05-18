@@ -1,12 +1,12 @@
 <template>
   <div
-    :style="{
-      backgroundImage:
-        'url(https://cdn.britannica.com/57/92857-050-8D5A0A8E/bull-moose-water.jpg)',
-    }"
     class="rectangles-container"
     @mousedown="addRect"
   >
+    <img
+      src="https://cdn.britannica.com/57/92857-050-8D5A0A8E/bull-moose-water.jpg"
+      alt=""
+    />
     <template v-for="rect in rectangles">
       <Rectangle
         :key="rect.uuid"
@@ -54,7 +54,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .rectangles-container {
-  height: 700px;
   width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
@@ -63,5 +62,10 @@ export default {
   margin: 0 auto;
   border: 1px solid red;
   position: relative;
+  img {
+    position: relative;
+    width: 100%;
+    z-index: -1;
+  }
 }
 </style>
