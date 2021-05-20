@@ -7,23 +7,24 @@
     @dragging="editRect"
     @resizing="editRect"
     :parent="true"
+    :style="{ borderColor: color }"
     class-name-active="my-active-class"
     class-name-handle="resize-handle"
   >
     <div class="label-button">
       <input
         :size="labelText.length || 1"
+        :style="{ backgroundColor: color }"
         v-model="labelText"
         type="text"
-        @input="editRect"
+        @input="editLabel"
       />
-      <button @click="deleteRect">X</button>
+      <button :style="{ backgroundColor: color }" @click="deleteRect">X</button>
     </div>
   </vue-draggable-resizable>
 </template>
 
 <script>
-/* eslint-disable */
 import VueDraggableResizable from 'vue-draggable-resizable';
 import 'vue-draggable-resizable/dist/VueDraggableResizable.css';
 
@@ -35,6 +36,7 @@ export default {
     width: Number,
     height: Number,
     label: String,
+    color: String,
     uuid: String,
   },
   components: {
@@ -74,8 +76,11 @@ export default {
         uuid: this.uuid,
       });
     },
+    editLabel() {
+      this.dispatchCoords();
+    },
     editRect(xPos, yPos, width, height) {
-      this.calculateRectPercentages(); 
+      this.calculateRectPercentages();
 
       if (xPos !== undefined && yPos !== undefined) {
         this.rectX = xPos;
@@ -100,12 +105,12 @@ export default {
 
       if (this.rectPerWidth) {
         this.rectWidth = Math.round(
-          this.parentWidth * (this.rectPerWidth / 100)
+          this.parentWidth * (this.rectPerWidth / 100),
         );
       }
       if (this.rectPerHeight) {
         this.rectHeight = Math.round(
-          this.parentHeight * (this.rectPerHeight / 100)
+          this.parentHeight * (this.rectPerHeight / 100),
         );
       }
       if (this.rectPerX) {
@@ -117,10 +122,8 @@ export default {
       this.dispatchCoords();
     },
     calculateRectPercentages() {
-      const rectanglePercentageWidth =
-        (this.rectWidth / this.parentWidth) * 100;
-      const rectanglePercentageHeight =
-        (this.rectHeight / this.parentHeight) * 100;
+      const rectanglePercentageWidth = (this.rectWidth / this.parentWidth) * 100;
+      const rectanglePercentageHeight = (this.rectHeight / this.parentHeight) * 100;
       const rectanglePercentageX = (this.rectX / this.parentWidth) * 100;
       const rectanglePercentageY = (this.rectY / this.parentHeight) * 100;
       this.rectPerWidth = rectanglePercentageWidth;

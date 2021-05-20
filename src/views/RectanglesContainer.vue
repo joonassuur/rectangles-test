@@ -20,6 +20,7 @@
         :label="rect.label"
         :x="rect.x"
         :y="rect.y"
+        :color="rect.color"
         :width="rect.width"
         :height="rect.height"
       />
@@ -43,7 +44,24 @@ export default {
   },
   computed: {
     rectangles() {
-      return this.$store.state.rectangles;
+      const arr = this.$store.state.rectangles.slice();
+      const colors = ['red', 'blue', 'green', 'yellow', 'pink'];
+      let colorCounter = 0;
+
+      arr.reduce((acc, val, index) => {
+        if (!acc[val.label]) {
+          acc[val.label] = colors[colorCounter];
+          arr[index].color = colors[colorCounter];
+          colorCounter += 1;
+          if (colorCounter > colors.length - 1) {
+            colorCounter = 0;
+          }
+        } else {
+          arr[index].color = acc[val.label];
+        }
+        return acc;
+      }, {});
+      return arr;
     },
   },
   methods: {
@@ -63,7 +81,9 @@ export default {
       const image = document.querySelector('#image-tag');
       image.style.display = 'block';
       this.height = image.getBoundingClientRect().height;
-      image.style.display = 'none';
+      if (this.height) {
+        image.style.display = 'none';
+      }
     },
   },
   mounted() {
@@ -84,7 +104,6 @@ export default {
   border: 1px solid red;
   position: relative;
   img {
-    visibility: hidden;
     position: relative;
     width: 100%;
   }
